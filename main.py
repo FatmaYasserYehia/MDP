@@ -48,7 +48,9 @@ def get_next_states(state, action):
 
 def value_iteration(r, threshold=1e-4):
     V = {s: 0 for s in states}
-    policy = {s: 'U' for s in states}
+    terminal_states = [(0, 2)]
+    policy = {s: 'U' for s in states if s not in terminal_states}
+
 
     # Define state-dependent rewards
     rewards = {
@@ -74,7 +76,7 @@ def value_iteration(r, threshold=1e-4):
 
             max_val = float('-inf')
             best_action = None
-            for action in actions:
+            for action in sorted(actions):
                 total = 0
                 for (next_state, prob) in get_next_states(state, action):
                     total += prob * (rewards[state] + discount * V[next_state])

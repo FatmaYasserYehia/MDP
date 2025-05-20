@@ -73,7 +73,7 @@ def policy_improvement(V, rewards, terminal_states):
             continue
         best_action = None
         best_value = float('-inf')
-        for action in actions:
+        for action in sorted(actions):
             value = 0
             for next_state, prob in get_next_states(state, action):
                 value += prob * (rewards[state] + discount * V[next_state])
